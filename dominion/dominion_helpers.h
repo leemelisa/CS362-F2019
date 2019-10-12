@@ -13,7 +13,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3,
                struct gameState *state, int handPos, int *bonus);
 int baronCardEffect(int card, int choice1, int choice2, int choice3, 
     struct gameState *state, int handPos, int *bonus, int currentPlayer);
-void checkSupply(int card, struct gameState *state);
+void checkEstateSupply(int card, struct gameState *state);
 int minionCardEffect(int card, int choice1, int choice2, int choice3, 
     struct gameState *state, int handPos, int *bonus, int currentPlayer);
 void discardHand(int currentPlayer, struct gameState *state);
@@ -21,7 +21,7 @@ int ambassadorCardEffect(int card, int choice1, int choice2, int choice3,
     struct gameState *state, int handPos, int *bonus, int currentPlayer);
 int tributeCardEffect(int card, int choice1, int choice2, int choice3, 
     struct gameState *state, int handPos, int *bonus, int currentPlayer, int nextPlayer);
-int mine(int card, int choice1, int choice2, int choice3, 
+int mineCardEffect(int card, int choice1, int choice2, int choice3, 
     struct gameState *state, int handPos, int *bonus, int currentPlayer);
 
 #endif

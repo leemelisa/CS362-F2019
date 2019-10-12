@@ -897,7 +897,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         return 0;
 
     case tribute:
-        return tributeCardEffect(card, choice1, choice2, choice3, state, handPos, bonus, currentPlayer);
+        return tributeCardEffect(card, choice1, choice2, choice3, state, handPos, bonus, currentPlayer, nextPlayer);
 
     case ambassador:
         return ambassadorCardEffect(card, choice1, choice2, choice3, state, handPos, bonus, currentPlayer);
@@ -1147,7 +1147,7 @@ int baronCardEffect(int card, int choice1, int choice2, int choice3, struct game
                     printf("No estate cards in your hand, invalid choice\n");
                     printf("Must gain an estate if there are any\n");
                 }
-                checkEstateSupply();
+                checkEstateSupply(card, state);
                 card_not_discarded = 0;//Exit the loop
             }
             //Next card
@@ -1157,13 +1157,13 @@ int baronCardEffect(int card, int choice1, int choice2, int choice3, struct game
         }
     }
     else {
-        checkEstateSupply();
+        checkEstateSupply(card, state);
     }
 
     return 0;
 }
 
-void checkSupply(int card, struct gameState *state) {
+void checkEstateSupply(int card, struct gameState *state) {
     int currentPlayer = whoseTurn(state);
     // check estate supply 
     if (supplyCount(card, state) > 0) {
@@ -1200,7 +1200,7 @@ int minionCardEffect(int card, int choice1, int choice2, int choice3, struct gam
                         discardCard(handPos, i, state, 0);
                     }
                     //draw 4
-                    for (j = 0; j < 4; j++) {
+                    for (int j = 0; j < 4; j++) {
                         drawCard(i, state);
                     }
                 }
@@ -1266,6 +1266,7 @@ int ambassadorCardEffect(int card, int choice1, int choice2, int choice3, struct
 
 int tributeCardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus, int currentPlayer, int nextPlayer) {
     int tributeRevealedCards[2] = {-1, -1};
+
     if ((state->discardCount[nextPlayer] + state->deckCount[nextPlayer]) <= 1) {
         if (state->deckCount[nextPlayer] > 0) {
             tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
@@ -1313,7 +1314,7 @@ int tributeCardEffect(int card, int choice1, int choice2, int choice3, struct ga
         tributeRevealedCards[1] = -1;
     }
 
-    for (i = 0; i < 2; i++) {
+    for (int i = 0; i < 2; i++) {
         if (tributeRevealedCards[i] == copper || tributeRevealedCards[i] == silver || tributeRevealedCards[i] == gold) { //Treasure cards
             state->coins += 2;
         }
