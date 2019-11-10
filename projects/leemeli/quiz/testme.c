@@ -23,9 +23,8 @@ char *inputString()
        str[i] = (char) num; 
     }
 
-    str[6] = '\0';
+    str[5] = '\0';
     char *res = str;
-    
     return res;
 }
 
